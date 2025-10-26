@@ -58,40 +58,40 @@ Mỗi task sẽ gửi chuỗi thông báo riêng của nó qua cổng UART1 đ�
 - Task 1: Gửi chuỗi "Task 1 sending data..."
 - Task 2: Gửi chuỗi "Task 2 sending data..."
 - Hai task cùng hoạt động song song, mỗi 200 ms gửi một lần.
-Kết nối USB–UART:
-STM32 (PA9)  --->  USB–UART (RX)
-STM32 (PA10) --->  USB–UART (TX)
-STM32 (GND)  --->  USB–UART (GND)
+- Kết nối USB–UART:
+- STM32 (PA9)  --->  USB–UART (RX)
+- STM32 (PA10) --->  USB–UART (TX)
+-STM32 (GND)  --->  USB–UART (GND)
 🧩 Cấu trúc chương trình
-1️ USART1_Init()
-Bật clock cho GPIOA và USART1.
-Cấu hình chân:
-PA9 (TX): Alternate Function Push–Pull.
-PA10 (RX): Input Floating.
-Thiết lập UART1 với:
-Baud rate: 9600
+ 1️ USART1_Init()
+- Bật clock cho GPIOA và USART1.
+- Cấu hình chân:
+- PA9 (TX): Alternate Function Push–Pull.
+- PA10 (RX): Input Floating.
+- Thiết lập UART1 với:
+- Baud rate: 9600
 8 bit data, 1 stop bit, no parity, no flow control.
-Kích hoạt UART bằng USART_Cmd(USART1, ENABLE).
-2️ sendString(char *str)
-Hàm gửi chuỗi qua UART1.
-Gửi từng ký tự.
-Chờ đến khi thanh ghi truyền (TXE) sẵn sàng.
-Dừng khi gặp ký tự kết thúc chuỗi (\0).
+- Kích hoạt UART bằng USART_Cmd(USART1, ENABLE).
+- 2️ sendString(char *str)
+- Hàm gửi chuỗi qua UART1.
+- Gửi từng ký tự.
+- Chờ đến khi thanh ghi truyền (TXE) sẵn sàng.
+- Dừng khi gặp ký tự kết thúc chuỗi (\0).
 3️ Task1()
-Chạy trong vòng lặp vô hạn.
-Gửi chuỗi "Task 1 sending data...\r\n".
-Sau đó delay 200 ms bằng vTaskDelay().
+- Chạy trong vòng lặp vô hạn.
+- Gửi chuỗi "Task 1 sending data...\r\n".
+- Sau đó delay 200 ms bằng vTaskDelay().
 4️ Task2()
-Hoạt động tương tự Task1.
-Gửi chuỗi "Task 2 sending data...\r\n".
-Delay 200 ms giữa mỗi lần gửi.
+- Hoạt động tương tự Task1.
+- Gửi chuỗi "Task 2 sending data...\r\n".
+- Delay 200 ms giữa mỗi lần gửi.
 5️ main()
-Gọi SystemInit() để khởi tạo hệ thống clock.
-Khởi tạo UART1.
-Tạo hai task:
-xTaskCreate(Task1, "Task1", 128, NULL, 1, NULL);
-xTaskCreate(Task2, "Task2", 128, NULL, 1, NULL);
-kết quả :
+- Gọi SystemInit() để khởi tạo hệ thống clock.
+- Khởi tạo UART1.
+- Tạo hai task:
+- xTaskCreate(Task1, "Task1", 128, NULL, 1, NULL);
+- xTaskCreate(Task2, "Task2", 128, NULL, 1, NULL);
+- kết quả :
 2 task bị xung đột , hiển thị lên uart thì bị gửi những kí tự lạ không giống với 2 chuỗi đã tạo.
 # BÀI 3
 # 🧠 ĐỀ BÀI : GỬI DỮ LIỆU UART TỪ NHIỀU TASK SỬ DỤNG MUTEX TRONG FREERTOS
