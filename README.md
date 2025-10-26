@@ -63,7 +63,7 @@ STM32 (PA9)  --->  USB–UART (RX)
 STM32 (PA10) --->  USB–UART (TX)
 STM32 (GND)  --->  USB–UART (GND)
 🧩 Cấu trúc chương trình
-1️⃣ USART1_Init()
+1️ USART1_Init()
 Bật clock cho GPIOA và USART1.
 Cấu hình chân:
 PA9 (TX): Alternate Function Push–Pull.
@@ -72,20 +72,20 @@ Thiết lập UART1 với:
 Baud rate: 9600
 8 bit data, 1 stop bit, no parity, no flow control.
 Kích hoạt UART bằng USART_Cmd(USART1, ENABLE).
-2️⃣ sendString(char *str)
+2️ sendString(char *str)
 Hàm gửi chuỗi qua UART1.
 Gửi từng ký tự.
 Chờ đến khi thanh ghi truyền (TXE) sẵn sàng.
 Dừng khi gặp ký tự kết thúc chuỗi (\0).
-3️⃣ Task1()
+3️ Task1()
 Chạy trong vòng lặp vô hạn.
 Gửi chuỗi "Task 1 sending data...\r\n".
 Sau đó delay 200 ms bằng vTaskDelay().
-4️⃣ Task2()
+4️ Task2()
 Hoạt động tương tự Task1.
 Gửi chuỗi "Task 2 sending data...\r\n".
 Delay 200 ms giữa mỗi lần gửi.
-5️⃣ main()
+5️ main()
 Gọi SystemInit() để khởi tạo hệ thống clock.
 Khởi tạo UART1.
 Tạo hai task:
